@@ -2,45 +2,42 @@
 
 ## Overview
 
-The Repayment Risk Simulator is an analytical study of consumer loan performance using historical Lending Club data from 2007 through 2018. The purpose of this project is to examine how borrower characteristics relate to repayment outcomes and to translate those relationships into interpretable insights that resemble the work performed by credit risk and portfolio analytics teams.
+This project analyzes historical Lending Club loan performance to understand how borrower attributes translate into realized repayment behavior. The objective is not to build a predictive model, but to replicate an analytics workflow commonly used in credit, product, and risk teams: transforming operational data into interpretable signals that inform underwriting policy, segmentation strategy, and portfolio monitoring.
 
-This project intentionally emphasizes structured analysis and communication rather than predictive modeling. The goal is to demonstrate how raw financial data can be transformed into decision-support intelligence that is accessible to both technical practitioners and business stakeholders.
+## Analytical Focus
 
-## Objective
+Rather than asking whether risk exists, the analysis examines where risk meaningfully differentiates borrowers and where commonly used indicators lose explanatory power. The goal is to identify which variables help decision-makers separate borrowers into behaviorally distinct groups and which add redundancy.
 
-The analysis investigates a central question: which borrower attributes are most strongly associated with elevated repayment risk, and how can those relationships inform credit evaluation and portfolio strategy.
+## Data Preparation
 
-## Data and Preparation
+Loan-level data from 2007–2018 were standardized and reduced into a structured analytical dataset using Python. Transformations included numeric conversion of interest rates, normalization of employment tenure, construction of an average FICO measure from score ranges, and creation of a binary repayment outcome distinguishing charged-off loans from successfully repaid loans. The resulting dataset was shaped specifically for exploratory and business intelligence analysis.
 
-The source dataset consists of Lending Club loan-level records. Because the original file is large, it is not stored in the repository. Instead, the workflow documents how the data were processed to create a clean analytical dataset suitable for business intelligence tools.
+## Findings
 
-Using Python with pandas and numpy, the raw data were standardized, filtered, and engineered into a structure designed for interpretation. Interest rates were converted to numeric form, employment length was normalized into consistent categories, and an average FICO score was derived from the provided score ranges. A binary risk indicator was created to distinguish loans that defaulted or were charged off from those that were fully repaid. Columns that added noise without analytical value were removed so that the resulting dataset reflects variables typically examined in underwriting and monitoring contexts.
+Credit grade provides directional separation of repayment outcomes, but much of its explanatory value overlaps with underlying credit score bands. When examined alongside FICO-derived segmentation, grade appears to function more as a packaging layer than an independent signal. This suggests that downstream analytics or pricing models may benefit more from continuous credit measures than from categorical grade labels alone.
 
-The resulting file, stored as data/processed/bi_ready_dataset.csv, is optimized for visualization and exploratory analysis rather than machine learning workflows.
+Income demonstrates a stabilizing relationship with repayment only up to a threshold. Beyond moderate income levels, default behavior does not materially improve. This indicates diminishing marginal predictive value and supports the view that repayment stress is often driven by balance sheet structure rather than raw earnings.
 
-## Analytical Approach
+Purpose-based segmentation reveals greater dispersion than expected. Loans associated with discretionary consolidation or refinancing show wider outcome variance than necessity-driven borrowing categories, implying behavioral heterogeneity that is not captured by traditional credit metrics.
 
-The project evaluates repayment behavior across three core dimensions: assigned credit grade, borrower income, and credit score quality. These dimensions reflect how lending institutions segment risk in practice and provide a transparent view of how borrower profiles translate into observed outcomes.
+Credit score transitions, particularly in near-prime ranges, show sharper changes in repayment behavior than movements within already strong score bands. This has practical implications for approval cutoffs, where small shifts in eligibility criteria may alter portfolio risk more than adjustments among higher-credit borrowers.
 
-The analysis was conducted in Tableau using the engineered dataset. Visualizations were designed to highlight distributional differences, directional relationships, and areas of concentration rather than to produce forecasts. The intent is to support reasoning, comparison, and explanation.
+## Interpretation
 
-## Key Findings
+Taken together, these patterns reinforce that commonly used lending indicators are not equally informative across their full range. Some variables operate as coarse screening tools, while others carry signal only in specific intervals. Effective analytics therefore requires understanding where segmentation adds value rather than assuming monotonic relationships across all borrowers.
 
-Credit grade exhibits a clear monotonic relationship with default frequency, indicating that internal grading frameworks meaningfully differentiate borrower risk. Income shows a stabilizing effect on repayment outcomes, though its protective value diminishes beyond middle-income levels, suggesting that income alone is not a sufficient underwriting signal. Credit score demonstrates the strongest sensitivity, with repayment performance improving substantially as borrowers move from subprime into near-prime ranges, underscoring the pricing and risk implications of relatively small score changes.
+## Repository Contents
 
-## Repository Structure
+The repository documents the transformation pipeline in notebooks/01_eda.ipynb and provides the processed dataset used for analysis. Visualization outputs generated in Tableau are stored in reports/figures and reflect the analytical comparisons described above.
 
-The repository contains the processed analytical dataset, the notebook that documents the transformation steps, and exported Tableau figures used to communicate results. The notebook located in notebooks/01_eda.ipynb provides a reproducible record of data preparation. Visualization outputs are stored in reports/figures and correspond directly to the insights discussed in this document.
+## Tools
 
-## Tools and Environment
-
-All preparation and transformation steps were performed in Python within a Jupyter environment. Visualization and exploratory analysis were completed in Tableau Public. Version control and project organization were managed with Git and GitHub.
+Python (pandas, numpy) was used for data preparation within Jupyter. Tableau Public was used for exploratory visualization. Git and GitHub were used to manage reproducibility and project structure.
 
 ## Relevance
 
-This project reflects the type of work conducted by analytics teams in financial services, fintech, and risk management functions. It demonstrates the ability to structure large datasets, engineer interpretable variables, and communicate analytical findings in a manner that supports operational and strategic decision-making.
+This work mirrors the exploratory phase of real-world credit analytics, where teams evaluate how borrower characteristics translate into observed behavior before formal modeling or policy changes are introduced. It demonstrates the ability to structure large datasets, interrogate segmentation logic, and communicate implications in a way that supports both technical and operational audiences.
 
 ## Author
 
 Devante Heywood
-
